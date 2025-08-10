@@ -1,0 +1,17 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const items = (await getCollection('essays')).sort((a,b)=> new Date(b.data.date) - new Date(a.data.date));
+---
+<Base title="Essays">
+  <h1 class="text-2xl font-semibold mb-6 tracking-widest">/essays</h1>
+  <div class="space-y-6">
+    {items.map((it) => (
+      <article class="panel p-4">
+        <h3 class="text-xl font-semibold"><a href={`/essays/${it.slug}/`}>{it.data.title}</a></h3>
+        <p class="text-sm text-zinc-500 mt-1">{new Date(it.data.date).toDateString()}</p>
+      </article>
+    ))}
+  </div>
+</Base>

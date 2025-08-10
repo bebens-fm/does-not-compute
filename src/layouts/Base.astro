@@ -1,0 +1,36 @@
+
+---
+export interface Props { title?: string; description?: string; }
+const { title = 'Does Not Compute', description = 'Research and reflections on systems, collapse, and what comes after.' } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body class="min-h-screen">
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <header class="sticky top-0 bg-black/80 backdrop-blur z-50 border-b border-cyan-400/40">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="tracking-widest text-lg"><span class="text-cyan-400">Does</span> Not <span class="text-cyan-400">Compute</span></a>
+        <nav class="text-sm space-x-4">
+          <a href="/essays/" class="underline decoration-cyan-400">/essays</a>
+          <a href="/library/" class="underline decoration-cyan-400">/library</a>
+          <a href="/about/" class="underline decoration-cyan-400">/about</a>
+          <a href="/log/" class="underline decoration-cyan-400">/log</a>
+        </nav>
+      </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 py-10">
+      <slot />
+    </main>
+    <footer class="border-t border-cyan-400/40 py-8 text-sm text-zinc-400">
+      <div class="max-w-7xl mx-auto px-4">
+        <p>© {new Date().getFullYear()} Does Not Compute — What are my chances? — Does not compute.</p>
+      </div>
+    </footer>
+  </body>
+</html>

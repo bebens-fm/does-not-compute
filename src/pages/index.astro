@@ -1,0 +1,51 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import PostItem from '@/components/PostItem.astro';
+import SourceRow from '@/components/SourceRow.astro';
+import { getCollection } from 'astro:content';
+
+const essays = (await getCollection('essays')).sort((a,b)=> new Date(b.data.date) - new Date(a.data.date)).slice(0,5);
+const notes = (await getCollection('notes')).sort((a,b)=> new Date(b.data.date) - new Date(a.data.date)).slice(0,6);
+const library = (await getCollection('library')).slice(0,8);
+const projects = await getCollection('projects');
+---
+<Base title="Does Not Compute — Essays and research" description="Research and reflections on systems, collapse, and what comes after.">
+  <h1 class="text-2xl mb-2">What are my chances? — Does not compute.</h1>
+  <p class="text-zinc-400 mb-8">Research and reflections on systems, collapse, and what comes after.</p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div class="lg:col-span-2 space-y-8">
+      <section id="essays" class="space-y-4">
+        <h2 class="text-lg font-semibold tracking-widest">/essays</h2>
+        {essays.map((e) => <PostItem entry={e} />)}
+      </section>
+
+      <section id="library">
+        <h2 class="text-lg font-semibold mb-2 tracking-widest">/library</h2>
+        <ul class="divide-y divide-zinc-800">
+          {library.map((it) => <SourceRow item={it} />)}
+        </ul>
+      </section>
+    </div>
+
+    <aside class="space-y-6">
+      <section id="projects" class="panel p-4">
+        <h2 class="text-2xl font-bold text-cyan-400 tracking-widest">/PROJECTS</h2>
+        {projects.length > 0 && <p class="text-sm text-zinc-400 mt-2">{projects[0].data.synopsis}</p>}
+      </section>
+
+      <section id="notes" class="panel p-4">
+        <h2 class="text-lg font-semibold tracking-widest">/NOTES</h2>
+        <div class="space-y-3 mt-3">
+          {notes.map((n) => (
+            <div class="bg-zinc-900/70 p-3 rounded-lg border border-cyan-400/20">
+              <p class="text-sm">{n.body ?? ''}</p>
+              <p class="text-[11px] text-zinc-500 mt-1">{new Date(n.data.date).toDateString()}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </aside>
+  </div>
+</Base>

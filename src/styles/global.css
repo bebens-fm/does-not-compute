@@ -1,0 +1,27 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+
+/* Composite background: scanlines + subtle phosphor grid */
+body {
+  @apply bg-black text-zinc-200 antialiased font-mono;
+  background-image:
+    linear-gradient(rgba(0,255,194,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,194,0.03) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.06) 0.5px, transparent 0.5px);
+  background-size: 4px 4px, 4px 4px, 100% 2px;
+  background-blend-mode: soft-light, normal, screen;
+}
+
+a { @apply underline underline-offset-2 decoration-phosphor hover:text-phosphor; }
+
+/* Panels */
+.panel { @apply bg-black/60 backdrop-blur border border-cyan-400/40 rounded-xl; }
+
+/* Prose tweaks */
+.prose :where(a):not(:where([class~="not-prose"] *)) { @apply text-phosphor; }

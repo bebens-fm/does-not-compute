@@ -1,0 +1,17 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const items = await getCollection('projects');
+---
+<Base title="Projects">
+  <h1 class="text-2xl font-semibold mb-6 tracking-widest">/projects</h1>
+  <div class="grid gap-4">
+    {items.map((it) => (
+      <article class="panel p-4">
+        <h3 class="text-xl font-semibold"><a href={`/projects/${it.slug}/`}>{it.data.title}</a></h3>
+        <p class="text-sm text-zinc-400 mt-1">{it.data.synopsis ?? ''}</p>
+      </article>
+    ))}
+  </div>
+</Base>

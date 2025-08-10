@@ -1,0 +1,17 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const items = await getCollection('projects');
+  return items.map((p) => ({ params: { slug: p.slug }, props: { item: p } }));
+}
+const { item } = Astro.props;
+---
+<Base title={item.data.title}>
+  <article class="prose prose-invert max-w-none panel p-6">
+    <h1>{item.data.title}</h1>
+    <p class="text-sm text-zinc-500">{item.data.synopsis}</p>
+    <slot />
+  </article>
+</Base>

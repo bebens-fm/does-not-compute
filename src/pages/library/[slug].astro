@@ -1,0 +1,26 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const items = await getCollection('library');
+  return items.map((p) => ({ params: { slug: p.slug }, props: { item: p } }));
+}
+const { item } = Astro.props;
+---
+<Base title={item.data.title}>
+  <article class="prose prose-invert max-w-none panel p-6">
+    <h1 class="font-sans">{item.data.title}</h1>
+    <p class="text-sm text-zinc-500">{item.data.type} — {item.data.author} — {item.data.year}</p>
+    {item.data.link && <p><a href={item.data.link} target="_blank" rel="noopener">↗ External link</a></p>}
+    <slot />
+    {item.data.quotes && item.data.quotes.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold">Quotes</h2>
+        <ul class="list-disc pl-5 text-zinc-300">
+          {item.data.quotes.map((q) => <li>{q}</li>)}
+        </ul>
+      </section>
+    )}
+  </article>
+</Base>

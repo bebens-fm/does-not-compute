@@ -1,0 +1,17 @@
+
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const posts = await getCollection('essays');
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+const { post } = Astro.props;
+---
+<Base title={post.data.title}>
+  <article class="prose prose-invert max-w-none panel p-6">
+    <h1 class="font-sans">{post.data.title}</h1>
+    <p class="text-sm text-zinc-500">{new Date(post.data.date).toDateString()} — {post.data.tags?.join(', ')}</p>
+    <slot />
+  </article>
+</Base>
