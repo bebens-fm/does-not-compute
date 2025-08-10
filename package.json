@@ -15,7 +15,6 @@
     "@astrojs/sitemap": "^3.1.0",
     "@astrojs/rss": "^4.0.3",
     "@types/node": "^20.11.30",
-    "sharp": "^0.33.2",
     "zod": "^3.23.8",
     "@astrojs/content": "^5.4.0"
   },
