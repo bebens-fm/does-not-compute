@@ -5,7 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 // Update to your actual Pages URL, e.g. https://bebens-fm.github.io/does-not-compute/
-const SITE_URL = 'https://<your-username>.github.io/<your-repo>/';
+const SITE_URL = 'https://bebens-fm.github.io/does-not-compute/';
 
 export default defineConfig({
   site: SITE_URL,
